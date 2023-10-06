@@ -55,7 +55,7 @@
 
     <script>
         var userName = "";
-        const socket = new WebSocket('ws://34.88.152.51:8080');
+        var socket = new WebSocket('ws://34.88.152.51:8080');
 
         socket.addEventListener('open', (event) => {
             console.log('WebSocket connection established.');
