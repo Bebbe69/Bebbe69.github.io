@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>  
+        <title>Grisigt kladd</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body> 
+        <!-- Title -->
+
+        <header>
+        <h1 style="text-align: center;">Home</h1>
+        </header>
+        <!-- Link between pages -->
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></a></li>
+            <li><a href="hohe.html">HoHe</a></li>
+          </ul>
+        </nav>
+
+        <div class="container"></div>
+
+        <!-- Daily quote -->
+        <main class="daily-quote">
+          <p>Quote of the Day: </p> <p>Bulbi Magni Albi post Diem Durum = Homo Sanus</p>
+        </main>
+        
+          <!-- custom prompt -->
+
+        <div id="username-modal" class="modal">
+            <div class="modal-content">
+              <h2>Enter your username:</h2>
+              <input type="text" id="username-input" onkeydown="handleUsernameKeyDown(event)"/>
+              <button onclick="submitUsername()">Submit</button>
+            </div>
+          </div>
+        <!-- Picture in right corner -->
+
+        <div class="container">
+            <img src="images/majestic-corgi-og.jpeg" class="bottom-right-image">
+            </div>
+        <!-- Chat related -->
+            <div class="chat-container">
+                <div id="chat-messages" class="chat-messages">
+                </div>
+                <div class="chat-input">
+                  <input type="text" placeholder="Type your message..." id ="message-input" onkeydown="handleKeyDown(event)">
+                  <button onclick="sendMessage()">Send</button>
+                </div>
+              </div> 
+              <footer class="copyright">
+                <p>&copy; 2023 Bebbe's Website</p>
+            </footer>
+              
+              <!--chat function with Java-->
+        <script>
+           var userName = "";
+
+            function sendMessage() {
+                var inputElement = document.getElementById("message-input");
+                var message = inputElement.value;
+                
+                if (message.trim() !== "") {
+                    var chatMessagesElement = document.getElementById("chat-messages");
+                    var messageElement = document.createElement("div");
+                    messageElement.innerText = userName + ": " + message;
+                    chatMessagesElement.appendChild(messageElement);
+
+                    inputElement.value = "";
+
+                }
+            }
+           
+            function handleKeyDown(event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); 
+          sendMessage();
+        }
+      }
+      // username prompt
+      function openPrompt() {
+        var modal = document.getElementById("username-modal");
+        var storedUsername = sessionStorage.getItem('username');
+        
+        if (storedUsername) {
+          document.getElementById("username-input").value = storedUsername;
+          userName = storedUsername;
+          closePrompt();
+        } else {
+          modal.style.display = "block";
+        }
+      }
+
+      function closePrompt() {
+        var modal = document.getElementById("username-modal");
+        modal.style.display = "none";
+      }
+
+      function submitUsername() {
+        var usernameInput = document.getElementById("username-input");
+        var username = usernameInput.value.trim();
+
+        if (username !== "") {
+            userName = username;
+            sessionStorage.setItem('username', username)
+            closePrompt();
+        }
+      }
+      
+      function handleUsernameKeyDown(event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          submitUsername();
+        }
+      }
+
+        </script>
+
+        <div id="prompt-modal" class="modal">
+            <div class="modal-content">
+                <h2>Enter your username:</h2>
+                <input type="text" id="username-input">
+                <button onclick="submitUsername()">Submit</button>
+            </div>
+        </div>
+
+        <script>
+            openPrompt();
+        </script>
+    </body>
+</html>
